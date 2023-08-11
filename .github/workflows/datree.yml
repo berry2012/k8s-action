@@ -33,7 +33,7 @@ jobs:
         with:
           # Add the path to the configuration file/s that you would like to test.
           # See https://github.com/datreeio/action-datree#usage for all available options.
-          path: './kubernetes'
+          path: 'kubernetes/*.yaml'
           # Setting a SARIF output will generate a file named "datree.sarif" containing your test results
           cliArguments: "-o sarif --only-k8s-files"
       - name: Upload result to GitHub Code Scanning to be displayed as security alerts 
