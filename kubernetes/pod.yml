@@ -9,6 +9,7 @@ spec:
   containers:
   - name: demo
     image: public.ecr.aws/nginx/nginx:latest
+    imagePullPolicy: Always
     resources:
       requests:
         memory: "64Mi"
