@@ -31,7 +31,7 @@ jobs:
           framework: kubernetes 
           # output_file_path: ./results.sarif
       - name: Expose report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: SARIF results
           path: results.sarif
