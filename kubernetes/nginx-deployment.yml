@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: clust3rf8ck
+  name: clust3rf8ck
+  namespace: clust3rf8ck
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clust3rf8ck
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: clust3rf8ck
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - clust3rf8ck
+            topologyKey: "kubernetes.io/hostname"    
+      containers:
+      - image: eurogig/clust3rf8ck@sha256:7b84b71d84b53e192889ef09aef4cd336a4252e83a02424aed3ae39d5b291ff5
+        name: clust3rf8ck
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "1"
+            memory: "200Mi"
+          requests:
+            cpu: "0.5"
+            memory: "100Mi"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "[ -f /var/run/nginx.pid ] && ps -A | grep nginx"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /index.html
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+              - NET_RAW
+        volumeMounts:
+        - mountPath: /var/cache/nginx
+          name: cache-volume
+        - mountPath: /var/run
+          name: pid-volume          
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsNonRoot: true
+        runAsUser: 10014
+        runAsGroup: 10014
+      volumes:
+      - name: cache-volume
+        emptyDir: {}
+      - name: pid-volume
+        emptyDir: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: clust3rf8ck
+  name: cflb
+  namespace: clust3rf8ck
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: clust3rf8ck
+  type: LoadBalancer
+status:
+  loadBalancer: {}

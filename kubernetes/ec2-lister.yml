@@ -5,6 +5,9 @@ metadata:
   name: ec2-lister
   namespace: serverless  
 spec:
+  securityContext: # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    runAsNonRoot: false # to specify a user, we'll have to add a user in the dockerfile for the image below
+  automountServiceAccountToken: false
   serviceAccountName: aws-sdk
   containers:
   - name: ec2-lister
@@ -19,4 +22,5 @@ spec:
         memory: "128Mi"
         cpu: "500m"
     securityContext:
-      allowPrivilegeEscalation: false        
+      allowPrivilegeEscalation: false       
+      readOnlyRootFilesystem: true       

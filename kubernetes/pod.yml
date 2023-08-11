@@ -3,6 +3,8 @@ kind: Pod
 metadata:
   name: demo
 spec:
+  securityContext: # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    runAsNonRoot: false # to specify a user, we'll have to add a user in the dockerfile for the image below
   automountServiceAccountToken: false
   containers:
   - name: demo
