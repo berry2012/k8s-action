@@ -33,6 +33,7 @@ jobs:
 
       - name: Expose report
         uses: actions/upload-artifact@v3
+        if: success() || failure()
         with:
           name: SARIF results
           path: results.sarif
