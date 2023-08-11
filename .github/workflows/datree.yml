@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Test yaml with Datree 
+      - name: Test *.yaml with Datree 
       # pass on failure so that code report upload can succeed 
         # continue-on-error: true     
         uses: datreeio/action-datree@de67ae7a5133d719dc794e1b75682cd4c5f94d8a
@@ -36,18 +36,6 @@ jobs:
           path: 'kubernetes/*.yaml'
           # Setting a SARIF output will generate a file named "datree.sarif" containing your test results
           cliArguments: "-o sarif --only-k8s-files"
-      - name: Upload result to GitHub Code Scanning to be displayed as security alerts 
-        uses: github/codeql-action/upload-sarif@v2
-
-        # Results are generated only on a success or failure
-        # this is required since GitHub by default won't run the next step
-        # when the previous one has failed. Security checks that do not pass will 'fail'.
-        # An alternative is to add `continue-on-error: true` to the previous step
-        # Or 'soft_fail: true' to checkov.
-        if: success() || failure()        
-        with:
-          sarif_file: datree.sarif
-          wait-for-processing: true
 
       - name: Test *.yml with Datree 
       # pass on failure so that code report upload can succeed 
@@ -63,6 +51,7 @@ jobs:
           path: 'kubernetes/*.yml'
           # Setting a SARIF output will generate a file named "datree.sarif" containing your test results
           cliArguments: "-o sarif --only-k8s-files"
+          
       - name: Upload result to GitHub Code Scanning to be displayed as security alerts 
         uses: github/codeql-action/upload-sarif@v2
 
