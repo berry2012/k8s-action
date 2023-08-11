@@ -15,6 +15,9 @@ spec:
         role: "backend"
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault   
       containers:
       - image: public.ecr.aws/nginx/nginx:latest
         imagePullPolicy: Always
