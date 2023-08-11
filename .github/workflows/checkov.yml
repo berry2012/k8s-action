@@ -29,14 +29,12 @@ jobs:
         with:
           directory: kubernetes
           framework: kubernetes 
-          # Setting a SARIF output will generate a file named "results.sarif" containing your test results
-          # args: "-o sarif"
           output_file_path: ./results.sarif
-      - name: Expose report
-        uses: actions/upload-artifact@v2
-        with:
-          name: SARIF results
-          path: ./results.sarif
+      # - name: Expose report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: SARIF results
+      #     path: ./results.sarif
       # Uploads results.sarif to GitHub repository using the upload-sarif action
       - name: Upload result to GitHub Code Scanning      
         uses: github/codeql-action/upload-sarif@v2
