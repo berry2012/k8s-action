@@ -18,7 +18,7 @@ jobs:
       contents: read
       security-events: write    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
@@ -29,15 +29,15 @@ jobs:
         with:
           directory: kubernetes
           framework: kubernetes 
-          output_file_path: ./results.sarif
-      # - name: Expose report
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: SARIF results
-      #     path: ./results.sarif
+          # output_file_path: ./results.sarif
+      - name: Expose report
+        uses: actions/upload-artifact@v2
+        with:
+          name: SARIF results
+          path: results.sarif
       # Uploads results.sarif to GitHub repository using the upload-sarif action
       - name: Upload result to GitHub Code Scanning      
         uses: github/codeql-action/upload-sarif@v2
         with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: ./results.sarif
+          sarif_file: results.sarif
