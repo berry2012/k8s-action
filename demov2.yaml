@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "demo-nginx-deployment"
-  namespace: "demo"
+  name: "demov2-nginx-deployment"
+  namespace: "demov2"
 spec:
   selector:
     matchLabels:
-      app: "demo-nginx"
+      app: "demov2-nginx"
   replicas: 3
   template:
     metadata:
       labels:
-        app: "demo-nginx"
+        app: "demov2-nginx"
         role: "backend"
     spec:
       automountServiceAccountToken: false
       containers:
       - image: public.ecr.aws/nginx/nginx:latest
         imagePullPolicy: Always
-        name: "demo-nginx"
+        name: "demov2-nginx"
         resources:
           requests:
            memory: "64Mi"

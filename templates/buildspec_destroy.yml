@@ -1,0 +1,24 @@
+#This solution, non-production-ready template describes AWS Codepipeline based CICD Pipeline for kubernetes code deployment.
+
+
+version: 0.2
+
+env:
+  variables:
+    CODE_SRC_DIR: "."
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - "echo ## Clean Up Deployment of Kubernetes Manifests"
+  build:
+    commands:
+      - "cd ${CODEBUILD_SRC_DIR}/${CODE_SRC_DIR}"
+      - "echo ## KUBERNETES DELETE : Starting with the kubectl delete"
+      - "kubectl delete -f ."
+
+artifacts:
+  files:
+    - '**/*'

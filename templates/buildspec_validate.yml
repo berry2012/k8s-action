@@ -1,0 +1,38 @@
+#This solution, non-production-ready template describes AWS Codepipeline based CICD Pipeline for kubernetes code deployment.
+
+
+version: 0.2
+
+env:
+  variables:
+    CODE_SRC_DIR: "."
+    SCRIPT_DIR: "./templates/scripts"
+    ENVIRONMENT: "dev"
+    SKIPVALIDATIONFAILURE: "N"
+    ENABLE_K8SCHECKOV: "Y"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+      golang: 1.14
+    commands:
+      - "yum update -y"
+      - "yum install -y curl jq awscli"
+      - "pip3 install checkov"
+      - "yum install -y golang"
+  build:
+    commands:
+      - "cd ${CODEBUILD_SRC_DIR}/${CODE_SRC_DIR}"
+      - "echo ## VALIDATION : Starting ..."
+      - "mkdir -p ${CODEBUILD_SRC_DIR}/reports"
+      - "/bin/bash ${CODEBUILD_SRC_DIR}/${SCRIPT_DIR}/k8s_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_K8SCHECKOV}"
+      - "cp checkov.xml ${CODEBUILD_SRC_DIR}/reports/checkov.xml"
+artifacts:
+  files:
+    - '**/*'
+reports:
+  checkov-reports:
+    files:
+      - "./reports/checkov.xml"
+    file-format: "JUNITXML"
