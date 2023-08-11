@@ -18,7 +18,7 @@ if (( ${k8sCheckov} == "Y"))
 then
     echo "## VALIDATION : Running checkov ..."
     #checkov -s -d .
-    checkov -o junitxml --framework kubernetes -d ./ >checkov.xml
+    checkov -o junitxml --framework kubernetes -d ./kubernetes >checkov.xml
 fi
 k8sCheckovOutput=$?
 
