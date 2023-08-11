@@ -15,7 +15,7 @@ phases:
   install:
     runtime-versions:
       python: 3.9
-      golang: 1.14
+      golang: 1.18
     commands:
       - "yum update -y"
       - "yum install -y curl jq awscli"
