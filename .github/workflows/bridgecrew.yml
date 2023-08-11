@@ -25,6 +25,8 @@ jobs:
       id: Bridgecrew
       uses: bridgecrewio/checkov-action@master
       with:
+        directory: kubernetes
+        framework: kubernetes 
         # api-key: ${{ secrets.API_KEY }}
         soft_fail: true
     - name: Expose report
