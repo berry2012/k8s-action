@@ -14,6 +14,6 @@ spec:
             configMapKeyRef:
               # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
               name: special-config
-              # Specify the key associated with the value
+              # Specifying the key associated with the value
               key: special.how
   restartPolicy: Never
