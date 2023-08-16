@@ -4,14 +4,16 @@ name: Datree
 on:
   push:
     branches: [ "main" ]
+
+# for pull request from other branches in the repo. Cons - Doesn't work where Github tokens are required
 #   pull_request:
 #     # The branches below must be a subset of the branches above
 #     branches: [ "main" ]
+
+# for pull request from forked repo. Cons - runs only in the pull request's target branch, and not the pull request's branch itself (which wouldn't include the latest commit in the PR).
   pull_request_target:
     types: [assigned, opened, synchronize, reopened]
     branches: [ "main" ]    
-  pull_request:
-    branches: [ "main", "master" ]
 
 
 permissions:
