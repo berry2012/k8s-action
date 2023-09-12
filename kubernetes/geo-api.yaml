@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geo-api
+spec:
+  selector:
+    matchLabels:
+      run: geo-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: geo-api
+    spec:
+      containers:
+      - name: geo-api
+        image: registry.k8s.io/hpa-example
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 250m
+            memory: "12Mi"
+          requests:
+            cpu: 125m
+            memory: "10Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: geo-api
+  labels:
+    run: geo-api
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: geo-api
