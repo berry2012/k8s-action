@@ -1,0 +1,81 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+  # Files stored in repository root
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "github-actions"
+    # Workflow files stored in the
+    # default location of `.github/workflows`
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
+  # Maintain dependencies for docker
+  - package-ecosystem: "docker"
+    directory: "/kubernetes"
+    schedule:
+      interval: "monthly"      
+
+  # Maintain dependencies for docker
+  - package-ecosystem: "docker"
+    directory: "/kubernetes"
+    schedule:
+      interval: "weekly"        
+
+  # - package-ecosystem: pip
+  #   directory: "/examples/helm"
+  #   schedule:
+  #     interval: monthly      
+
+  # - package-ecosystem: pip
+  #   directory: "/helm"
+  #   schedule:
+  #     interval: monthly
+  # - package-ecosystem: "terraform" 
+  #   directory: "/terraform/modules/cluster" 
+  #   schedule:
+  #     interval: "weekly"
+  #   ignore:
+  #     # EKS blueprints upgrades will be handled separately
+  #     - dependency-name: '*terraform-aws-eks-blueprints*'
+  # - package-ecosystem: "terraform" 
+  #   directory: "/terraform/modules/ide" 
+  #   schedule:
+  #     interval: "weekly"
+  #   ignore:
+  #     # EKS blueprints upgrades will be handled separately
+  #     - dependency-name: '*terraform-aws-eks-blueprints*'
+  # - package-ecosystem: "terraform" 
+  #   directory: "/terraform/modules/addons/descheduler" 
+  #   schedule:
+  #     interval: "weekly"
+  #   ignore:
+  #     # EKS blueprints upgrades will be handled separately
+  #     - dependency-name: '*terraform-aws-eks-blueprints*'
+  # - package-ecosystem: npm
+  #   directory: "/website"
+  #   schedule:
+  #     interval: monthly
+  #   ignore:
+  #     # Let backstage-cli do these version bumps
+  #     - dependency-name: '@docusaurus*'
+  # - package-ecosystem: npm
+  #   directory: "/test/util"
+  #   schedule:
+  #     interval: monthly      
